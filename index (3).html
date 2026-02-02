@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agents IA Romain & Ania | Jonas Browser High-Tech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #001F3F;
+            --primary-blue: #0050A8;
+            --accent-cyan: #00BFFF;
+            --accent-cyan-soft: rgba(0, 191, 255, 0.15);
+            --bg-gradient-start: #020617;
+            --bg-gradient-end: #000814;
+            --text-light: #FFFFFF;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --card-bg: rgba(0, 31, 63, 0.6);
+            --card-border: rgba(0, 191, 255, 0.3);
+            --font-primary: 'Outfit', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 80, 168, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 191, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 191, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 191, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-container img {
+            height: 50px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.3));
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .company-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text .baseline {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--primary-blue));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-light);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-cyan-soft);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.2); }
+            50% { box-shadow: 0 0 20px 5px rgba(0, 191, 255, 0.1); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-cyan) 100%);
+            color: var(--text-light);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 191, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-cyan-soft);
+            border-color: var(--accent-cyan);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .accent-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 2px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* Agents Section */
+        #agents {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .agent-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan));
+        }
+
+        .agent-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 191, 255, 0.15);
+            border-color: var(--accent-cyan);
+        }
+
+        .agent-card.romain::before {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--primary-blue));
+        }
+
+        .agent-card.ania::before {
+            background: linear-gradient(90deg, #4DD0E1, var(--accent-cyan));
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(180deg, rgba(0, 80, 168, 0.2) 0%, transparent 100%);
+        }
+
+        .agent-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: top;
+            border: 3px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .agent-role {
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .agent-body {
+            padding: 0 2rem 2rem;
+        }
+
+        .agent-pitch {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .agent-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-cyan-soft);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+        }
+
+        .feature-tag svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .agent-benefits {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .agent-benefits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .agent-benefits li:last-child {
+            border-bottom: none;
+        }
+
+        .agent-benefits li::before {
+            content: '✓';
+            color: var(--accent-cyan);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .agent-cta {
+            width: 100%;
+        }
+
+        /* Features Section */
+        #fonctionnalites {
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 80, 168, 0.1) 50%, transparent 100%);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-cyan) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            color: var(--text-light);
+        }
+
+        .feature-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 193, 7, 0.15);
+            color: #FFC107;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Demo Section */
+        #demo {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .demo-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .demo-tab {
+            flex: 1;
+            padding: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .demo-tab:hover {
+            color: var(--text-light);
+            background: rgba(0, 191, 255, 0.05);
+        }
+
+        .demo-tab.active {
+            color: var(--accent-cyan);
+            background: rgba(0, 191, 255, 0.1);
+        }
+
+        .demo-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-cyan);
+        }
+
+        .demo-content {
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .demo-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .demo-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-example h4 {
+            color: var(--accent-cyan);
+            font-family: var(--font-display);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-output {
+            background: rgba(0, 31, 63, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .demo-output h5 {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-output p, .demo-output li {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .demo-output ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .demo-output li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .demo-output li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        .demo-prompt {
+            background: linear-gradient(135deg, rgba(0, 80, 168, 0.3), rgba(0, 191, 255, 0.1));
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-style: italic;
+            color: var(--text-muted);
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        /* Dashboard Preview */
+        .dashboard-preview {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .dashboard-header h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 8, 20, 0.9);
+            border-top: 1px solid var(--card-border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-brand img {
+            height: 60px;
+            width: auto;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-section h5 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            color: var(--accent-cyan);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent-cyan);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-credits {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-credits strong {
+            color: var(--accent-cyan);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 8, 20, 0.98);
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--card-border);
+                display: none;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            nav li {
+                border-bottom: 1px solid var(--card-border);
+            }
+
+            nav a {
+                display: block;
+                padding: 1rem 0;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .agent-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .demo-tabs {
+                flex-direction: column;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+                min-width: 0;
+            }
+
+            .agent-card {
+                min-width: 0;
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .logo-text .company-name {
+                font-size: 0.9rem;
+            }
+
+            .logo-text .baseline {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="assets/LOGO_JB.png" alt="Jonas Browser High-Tech Logo">
+                <div class="logo-text">
+                    <span class="company-name">Jonas Browser High-Tech</span>
+                    <span class="baseline">On vous connecte au futur</span>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#agents">Agents IA</a></li>
+                    <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                    <li><a href="#demo">Démonstration</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10,8 16,12 10,16"></polygon>
+                </svg>
+                Plateforme IA nouvelle génération
+            </div>
+            <h1>Agents IA<br>Romain & Ania</h1>
+            <p class="hero-subtitle">
+                Une équipe IA dédiée à votre marketing digital et à votre secrétariat, 
+                développée par Jonas Browser High-Tech pour booster votre productivité.
+            </p>
+            <div class="hero-cta">
+                <a href="#demo" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5,3 19,12 5,21"></polygon>
+                    </svg>
+                    Voir la démo HTML
+                </a>
+                <a href="#agents" class="btn btn-secondary">
+                    Découvrir les agents
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agents Section -->
+    <section id="agents">
+        <div class="section-header">
+            <h2 class="section-title">Nos Agents IA</h2>
+            <p class="section-subtitle">
+                Deux assistants intelligents spécialisés pour couvrir vos besoins en marketing et secrétariat.
+            </p>
+            <div class="accent-line"></div>
+        </div>
+
+        <div class="agents-grid">
+            <!-- Agent Romain -->
+            <div class="agent-card romain">
+                <div class="agent-header">
+                    <img src="assets/maquette_romain_web.png" alt="Agent IA Romain" class="agent-avatar">
+                    <div class="agent-info">
+                        <h3>Romain</h3>
+                        <span class="agent-role">Agent IA Marketing Digital</span>
+                    </div>
+                </div>
+                <div class="agent-body">
+                    <p class="agent-pitch">
+                        Romain automatise et optimise vos actions de marketing digital pour booster votre visibilité et vos campagnes avec intelligence.
+                    </p>
+                    <div class="agent-features">
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Emails
+                        </span>
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                            Réseaux sociaux
+                        </span>
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            Analytics
+                        </span>
+                    </div>
+                    <ul class="agent-benefits">
+                        <li>Création d'emails marketing et newsletters personnalisés B2B/B2C</li>
+                        <li>Rédaction de posts adaptés pour LinkedIn, Facebook, Instagram</li>
+                        <li>Planification de campagnes multi-canales avec calendrier éditorial</li>
+                        <li>Analyse des performances et suggestions d'optimisation</li>
+                        <li>Génération de contenus publicitaires percutants</li>
+                    </ul>
+                    <button class="btn btn-primary agent-cta" onclick="showDemo('romain')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Briefer Romain
+                    </button>
+                </div>
+            </div>
+
+            <!-- Agent Ania -->
+            <div class="agent-card ania">
+                <div class="agent-header">
+                    <img src="assets/agent_Ania.png" alt="Agent IA Ania" class="agent-avatar">
+                    <div class="agent-info">
+                        <h3>Ania</h3>
+                        <span class="agent-role">Agent IA Secrétariat & Back-Office</span>
+                    </div>
+                </div>
+                <div class="agent-body">
+                    <p class="agent-pitch">
+                        Ania gère votre secrétariat : courriers, rendez-vous, comptes rendus et rappels, pour que vous restiez concentré sur votre cœur de métier.
+                    </p>
+                    <div class="agent-features">
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Courriers
+                        </span>
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Agenda
+                        </span>
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            Documents
+                        </span>
+                        <span class="feature-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Rappels
+                        </span>
+                    </div>
+                    <ul class="agent-benefits">
+                        <li>Rédaction de lettres professionnelles et courriers administratifs</li>
+                        <li>Prise et fixation de rendez-vous avec confirmation automatique</li>
+                        <li>Synthèses de réunions et rapports à partir de vos notes</li>
+                        <li>Gestion des rappels clients par email ou SMS</li>
+                        <li>Préparation de réponses types pour les demandes fréquentes</li>
+                    </ul>
+                    <button class="btn btn-primary agent-cta" onclick="showDemo('ania')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        Demander une lettre / un RDV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="fonctionnalites">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">Fonctionnalités clés</h2>
+                <p class="section-subtitle">
+                    Une plateforme complète pour gérer marketing et administration en toute simplicité.
+                </p>
+                <div class="accent-line"></div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h4>Gestion coordonnée</h4>
+                    <p>Romain et Ania travaillent ensemble pour couvrir tout le cycle client, du premier contact au suivi administratif.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                    </div>
+                    <h4>Tableau de bord unifié</h4>
+                    <p>Visualisez d'un coup d'œil les tâches récentes, prochains rendez-vous et campagnes en cours.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h4>Prompts pré-remplis</h4>
+                    <p>Des modèles de requêtes intelligents pour guider vos demandes et obtenir des résultats optimaux rapidement.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h4>Intégration CRM</h4>
+                    <p>Connexion prévue avec vos outils CRM et messagerie pour une synchronisation fluide de vos données.</p>
+                    <span class="feature-badge">À venir</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo">
+        <div class="section-header">
+            <h2 class="section-title">Démonstration Interactive</h2>
+            <p class="section-subtitle">
+                Découvrez des exemples concrets de ce que Romain et Ania peuvent produire pour vous.
+            </p>
+            <div class="accent-line"></div>
+        </div>
+
+        <div class="demo-container">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="switchTab('romain-demo')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Romain – Marketing
+                </button>
+                <button class="demo-tab" onclick="switchTab('ania-demo')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Ania – Secrétariat
+                </button>
+                <button class="demo-tab" onclick="switchTab('dashboard-demo')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Tableau de bord
+                </button>
+            </div>
+
+            <!-- Romain Demo -->
+            <div class="demo-content active" id="romain-demo">
+                <div class="demo-example">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Exemple : Email marketing B2B
+                    </h4>
+                    <div class="demo-prompt">
+                        « Crée un email de prospection pour présenter nos services d'installation domotique aux PME de la région nantaise. »
+                    </div>
+                    <div class="demo-output">
+                        <h5>Objet : Optimisez votre espace de travail avec la domotique intelligente</h5>
+                        <p>Bonjour [Prénom],</p>
+                        <p style="margin-top: 0.75rem;">
+                            En tant que dirigeant d'entreprise à Nantes, vous cherchez sans doute à améliorer le confort de vos équipes tout en maîtrisant vos coûts énergétiques.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Chez Jonas Browser High-Tech, nous accompagnons les PME de la région dans leur transformation digitale grâce à des solutions domotiques sur mesure : éclairage intelligent, gestion climatique automatisée, sécurité connectée.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            <strong>Nos clients constatent en moyenne une réduction de 25% de leur facture énergétique.</strong>
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Seriez-vous disponible pour un échange de 15 minutes cette semaine ?
+                        </p>
+                        <p style="margin-top: 1rem; color: var(--accent-cyan);">
+                            Cordialement,<br>
+                            L'équipe Jonas Browser High-Tech
+                        </p>
+                    </div>
+                </div>
+
+                <div class="demo-example">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        Exemple : Post LinkedIn
+                    </h4>
+                    <div class="demo-prompt">
+                        « Rédige un post LinkedIn pour annoncer notre nouvelle offre de maintenance préventive. »
+                    </div>
+                    <div class="demo-output">
+                        <p>🔧 <strong>Nouvelle offre : Maintenance Préventive Intelligente</strong></p>
+                        <p style="margin-top: 0.75rem;">
+                            Chez Jonas Browser High-Tech, nous croyons que le meilleur incident est celui qui n'arrive jamais.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            C'est pourquoi nous lançons notre programme de maintenance préventive connectée :
+                        </p>
+                        <ul>
+                            <li>Surveillance 24/7 de vos équipements</li>
+                            <li>Alertes prédictives avant les pannes</li>
+                            <li>Intervention rapide sur site en moins de 4h</li>
+                        </ul>
+                        <p style="margin-top: 0.75rem;">
+                            📍 Disponible pour toutes les entreprises de Loire-Atlantique
+                        </p>
+                        <p style="margin-top: 0.75rem; color: var(--accent-cyan);">
+                            #Domotique #MaintenancePréventive #Innovation #Nantes #PME
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ania Demo -->
+            <div class="demo-content" id="ania-demo">
+                <div class="demo-example">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Exemple : Lettre de relance
+                    </h4>
+                    <div class="demo-prompt">
+                        « Rédige une lettre de relance polie pour une facture impayée depuis 30 jours, client : SAS TechnoPlus. »
+                    </div>
+                    <div class="demo-output">
+                        <p style="text-align: right; margin-bottom: 1.5rem;">
+                            Nantes, le [Date du jour]
+                        </p>
+                        <p><strong>SARL Jonas Browser High-Tech</strong><br>
+                        108 Boulevard Robert Schuman<br>
+                        44300 Nantes</p>
+                        <p style="margin-top: 1rem;">
+                            <strong>À l'attention de la Direction Financière</strong><br>
+                            SAS TechnoPlus
+                        </p>
+                        <p style="margin-top: 1.5rem;">
+                            <strong>Objet : Relance amiable – Facture n°[XXXX] du [Date]</strong>
+                        </p>
+                        <p style="margin-top: 1rem;">
+                            Madame, Monsieur,
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Sauf erreur de notre part, nous n'avons pas encore reçu le règlement de la facture mentionnée en objet, d'un montant de [XXX] € TTC, dont l'échéance était fixée au [Date].
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Si ce règlement a été effectué entre-temps, nous vous prions de ne pas tenir compte de ce courrier. Dans le cas contraire, nous vous serions reconnaissants de bien vouloir procéder au paiement dans les meilleurs délais.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            Nous restons à votre disposition pour tout renseignement complémentaire.
+                        </p>
+                        <p style="margin-top: 1rem;">
+                            Veuillez agréer, Madame, Monsieur, l'expression de nos salutations distinguées.
+                        </p>
+                        <p style="margin-top: 1rem; color: var(--accent-cyan);">
+                            Le Service Comptabilité<br>
+                            Jonas Browser High-Tech
+                        </p>
+                    </div>
+                </div>
+
+                <div class="demo-example">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Exemple : Planification de rendez-vous
+                    </h4>
+                    <div class="demo-prompt">
+                        « Fixe un rendez-vous avec M. Dupont pour un audit domotique, semaine prochaine, créneaux matin. »
+                    </div>
+                    <div class="demo-output">
+                        <h5>📅 Proposition de rendez-vous créée</h5>
+                        <p style="margin-top: 1rem;"><strong>Client :</strong> M. Dupont</p>
+                        <p><strong>Objet :</strong> Audit domotique – Évaluation des besoins</p>
+                        <p><strong>Durée estimée :</strong> 1h30</p>
+                        <p style="margin-top: 1rem;"><strong>Créneaux proposés :</strong></p>
+                        <ul>
+                            <li>Lundi 10 février – 9h00 à 10h30</li>
+                            <li>Mardi 11 février – 10h00 à 11h30</li>
+                            <li>Jeudi 13 février – 9h30 à 11h00</li>
+                        </ul>
+                        <p style="margin-top: 1rem; padding: 0.75rem; background: rgba(0, 191, 255, 0.1); border-radius: 8px;">
+                            ✉️ <strong>Email de confirmation prêt à envoyer</strong><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Cliquez pour envoyer au client avec les 3 propositions de créneaux.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Demo -->
+            <div class="demo-content" id="dashboard-demo">
+                <div class="dashboard-preview">
+                    <div class="dashboard-header">
+                        <h4>📊 Aperçu du tableau de bord</h4>
+                        <span style="color: var(--accent-cyan); font-size: 0.85rem;">Dernière mise à jour : il y a 5 min</span>
+                    </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Emails envoyés (7j)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">68%</div>
+                            <div class="stat-label">Taux d'ouverture</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">RDV cette semaine</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Lettres générées</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-example" style="margin-top: 2rem;">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        Activité récente
+                    </h4>
+                    <div class="demo-output">
+                        <ul style="margin: 0;">
+                            <li><strong>14:32</strong> – Romain a généré une newsletter mensuelle pour 245 contacts</li>
+                            <li><strong>11:15</strong> – Ania a confirmé le RDV avec M. Martin (vendredi 14h)</li>
+                            <li><strong>09:45</strong> – Romain a publié un post LinkedIn (engagement : 12%)</li>
+                            <li><strong>Hier</strong> – Ania a rédigé 2 lettres de relance (factures impayées)</li>
+                            <li><strong>Hier</strong> – Romain a créé une campagne Facebook Ads (budget : 150€)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="demo-example">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Prochains rappels
+                    </h4>
+                    <div class="demo-output">
+                        <ul style="margin: 0;">
+                            <li>🔔 <strong>Demain 9h</strong> – Relancer SAS TechnoPlus (devis en attente)</li>
+                            <li>🔔 <strong>Mercredi</strong> – Envoyer newsletter de février</li>
+                            <li>🔔 <strong>Vendredi</strong> – Préparer compte-rendu réunion client Durand</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/LOGO_JB.png" alt="Jonas Browser High-Tech">
+                    <p>
+                        Jonas Browser High-Tech développe des solutions technologiques innovantes pour accompagner les entreprises dans leur transformation digitale.
+                    </p>
+                    <p style="color: var(--accent-cyan); font-size: 0.85rem; margin-top: 0.5rem;">
+                        « On vous connecte au futur »
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h5>Navigation</h5>
+                    <ul>
+                        <li><a href="#agents">Nos Agents IA</a></li>
+                        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                        <li><a href="#demo">Démonstration</a></li>
+                        <li><a href="https://github.com/jonas-browser/agents-ia" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h5>Contact</h5>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>108 Boulevard Robert Schuman<br>44300 Nantes, France</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>06 52 57 37 79</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span>jonas-browser@outlook.fr</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <a href="https://www.jonas-browser.com" target="_blank">www.jonas-browser.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    <p>© 2026 SARL Jonas Browser High-Tech – Tous droits réservés</p>
+                    <p style="margin-top: 0.5rem;">Agents IA Romain & Ania développés par <strong>Ingénieure en IA : Gautier Hayet</strong></p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('active');
+        }
+
+        // Demo tab switching
+        function switchTab(tabId) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            const tabs = document.querySelectorAll('.demo-tab');
+            tabs.forEach(tab => {
+                if (tab.textContent.toLowerCase().includes(tabId.split('-')[0])) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Show corresponding content
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Show demo from agent cards
+        function showDemo(agent) {
+            // Scroll to demo section
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+            
+            // Switch to appropriate tab after a short delay
+            setTimeout(() => {
+                switchTab(agent + '-demo');
+            }, 500);
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.75rem 2rem';
+                header.style.background = 'rgba(0, 8, 20, 0.95)';
+            } else {
+                header.style.padding = '1rem 2rem';
+                header.style.background = 'rgba(0, 8, 20, 0.85)';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.getElementById('main-nav').classList.remove('active');
+                }
+            });
+        });
+
+        // Animation on scroll (simple intersection observer)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.agent-card, .feature-card, .demo-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
